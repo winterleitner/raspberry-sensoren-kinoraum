@@ -10,12 +10,12 @@ const Chart = props => {
             y: {
                 type: 'linear',
                 display: true,
-                position: 'left',
+                position: 'right',
             },
             y1: {
                 type: 'linear',
                 display: true,
-                position: 'right',
+                position: 'left',
 
                 // grid line settings
                 grid: {

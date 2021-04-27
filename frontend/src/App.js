@@ -4,6 +4,9 @@ import React, {useState, useEffect} from "react";
 import {ThChart} from "./charts/ThChart";
 import {Table, Button} from "reactstrap";
 import DatePicker from "react-datepicker";
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import de from 'date-fns/locale/de';
+registerLocale('de', de)
 
 const App = props => {
     const [logs, setLogs] = useState([])
@@ -19,7 +22,7 @@ const App = props => {
     }, [])
 
     const load = async () => {
-        const resp = await fetch("http://192.168.4.65/data.php")
+        const resp = await fetch("data.php")
         const res = await resp.json()
         const parsed = res.map(r => {
                 return {...r, zeit: new Date(r.zeit)}
@@ -42,12 +45,12 @@ const App = props => {
             von
             <div className="mb-2">
                 <DatePicker selected={start} onChange={date => setStart(date)} showTimeSelect dateFormat="Pp"
-                            className="form-control"/>
+                            className="form-control" locale="de"/>
             </div>
             bis
             <div>
                 <DatePicker selected={end} onChange={date => setEnd(date)} showTimeSelect dateFormat="Pp"
-                            className="form-control"/>
+                            className="form-control" locale="de"/>
             </div>
             <ThChart data={logs.filter(l => l.zeit > start && l.zeit < end)}/>
 
