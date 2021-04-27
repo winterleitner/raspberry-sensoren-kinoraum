@@ -12,13 +12,12 @@ if ($dbconnect->connect_error) {
     die("Database connection failed: " . $dbconnect->connect_error);
 }
 
-$result = mysqli_query($dbconnect, "SELECT * FROM messungen")
+$result = mysqli_query($dbconnect, "SELECT DATE_FORMAT(zeit, '%Y-%m-%dT%TZ') AS zeit, temperatur, luftfeuchtigkeit FROM messungen")
 or die (mysqli_error($dbconnect));
 
 $data = array();
 foreach ($result as $row) {
     $data[] = $row;
 }
-
+header('Access-Control-Allow-Origin: *');
 print json_encode($data);
-
