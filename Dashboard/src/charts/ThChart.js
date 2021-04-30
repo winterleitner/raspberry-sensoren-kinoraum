@@ -1,8 +1,9 @@
 import React from "react"
 import { Line } from 'react-chartjs-2';
 
-const Chart = props => {
+var hour_logged = -1
 
+const Chart = props => {
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -29,16 +30,19 @@ const Chart = props => {
                 max: 30
             },
             x: {
+                grid: {
+                    drawOnChartArea: false,
+                },
                 ticks: {
+                    autoSkip: false,
+                    minRotation: 90,
+                    maxRotation: 90,
                     callback: function(val, index) {
-                        // Hide the label of every 2nd dataset
-                        console.log(this.getLabelForValue(val).split(' ')[1].split(':')[1])
                         var hour = parseInt(this.getLabelForValue(val).split(' ')[1].split(':')[0])
-                        var hour_logged = -1
-                        var min = parseInt(this.getLabelForValue(val).split(' ')[1].split(':')[1])
-                        if ((min > 55 || min < 5) && hour != hour_logged) {
-                            hour_logged = hour - 1
+                        if (hour !== hour_logged) {
+                            hour_logged = hour
                             var label = this.getLabelForValue(val)
+                            console.log(label, index)
 
                             return `${label.split(':')[0]}:00`
                         } else return ''
