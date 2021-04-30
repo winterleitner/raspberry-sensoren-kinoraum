@@ -22,7 +22,8 @@ const App = props => {
     }, [])
 
     const load = async () => {
-        const resp = await fetch("data.php")
+        const resp = await fetch("data.php")                        // use for deployment
+        // const resp = await fetch("http://192.168.4.65/data.php")      // use for local testing
         const res = await resp.json()
         const parsed = res.map(r => {
                 return {...r, zeit: new Date(r.zeit)}

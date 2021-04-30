@@ -7,15 +7,19 @@ const Chart = props => {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-            y: {
+            y: { // hum
                 type: 'linear',
                 display: true,
                 position: 'right',
+                text: 'Relative Humidity in %',
+                min: 40,
+                max: 75
             },
-            y1: {
+            y1: { // temp
                 type: 'linear',
                 display: true,
                 position: 'left',
+                text: 'Temperature in Celcius',
 
                 // grid line settings
                 grid: {
@@ -23,6 +27,23 @@ const Chart = props => {
                 },
                 min: 0,
                 max: 30
+            },
+            x: {
+                ticks: {
+                    callback: function(val, index) {
+                        // Hide the label of every 2nd dataset
+                        console.log(this.getLabelForValue(val).split(' ')[1].split(':')[1])
+                        var hour = parseInt(this.getLabelForValue(val).split(' ')[1].split(':')[0])
+                        var hour_logged = -1
+                        var min = parseInt(this.getLabelForValue(val).split(' ')[1].split(':')[1])
+                        if ((min > 55 || min < 5) && hour != hour_logged) {
+                            hour_logged = hour - 1
+                            var label = this.getLabelForValue(val)
+
+                            return `${label.split(':')[0]}:00`
+                        } else return ''
+                    }
+                }
             }
         },
     };

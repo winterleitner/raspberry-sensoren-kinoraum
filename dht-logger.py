@@ -49,25 +49,33 @@ if tries == 10:
 cur = conn.cursor()
 
 while True:
-    try:
-        # Print the values to the serial port
-        temperature_c = dhtDevice.temperature
-        # temperature_f = temperature_c * (9 / 5) + 32
-        humidity = dhtDevice.humidity
-        log_db(temperature_c, humidity)
-        # print(
-        #     "Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(
-        #         temperature_f, temperature_c, humidity
-        #     )
-        # )
+    i = 0
+    temp = 0.0
+    hum = 0.0
 
-    except RuntimeError as error:
-        # Errors happen fairly often, DHT's are hard to read, just keep going
-        # print("Error " + error.args[0])
-        time.sleep(1.0)
-        continue
-    except Exception as error:
-        dhtDevice.exit()
-        raise error
+    temperature = 0.0
+    humidity = 0.0
 
-    time.sleep(60.0)
+    while i < 10:
+        try:
+            i += 1
+            temp = dhtDevice.temperature
+            hum = dhtDevice.humidity
+
+        except RuntimeError as error:
+            i -= 1
+            time.sleep(1.0)
+            continue
+        except Exception as error:
+            dhtDevice.exit()
+            raise error
+
+        temperature += temp
+        humidity += hum
+        time.sleep(6.0)
+
+    temperature /= i
+    humidity /= i
+    log_db(temperature, humidity)
+
+    #time.sleep(60.0)
