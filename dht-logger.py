@@ -26,7 +26,7 @@ dhtDevice = adafruit_dht.DHT22(board.D2, use_pulseio=False)
 # Connect to MariaDB Platform
 connected = False
 tries = 0
-while connected is False and tries < 10:
+while connected is False:
     try:
         conn = mariadb.connect(
             user="root",
@@ -42,9 +42,6 @@ while connected is False and tries < 10:
         tries += 1
         time.sleep(2.0)
 
-if tries == 10:
-    sys.exit(-1)
-
 # Get Cursor
 cur = conn.cursor()
 
@@ -56,6 +53,7 @@ while True:
     temperature = 0.0
     humidity = 0.0
 
+    # take mean over 10 measurements
     while i < 10:
         try:
             i += 1
@@ -64,7 +62,6 @@ while True:
 
         except RuntimeError as error:
             i -= 1
-            time.sleep(1.0)
             continue
         except Exception as error:
             dhtDevice.exit()
@@ -76,6 +73,9 @@ while True:
 
     temperature /= i
     humidity /= i
-    log_db(temperature, humidity)
 
-    #time.sleep(60.0)
+    # round to one decimal place
+    temperature = round(temperature, 1)
+    humidity = round(humidity, 1)
+
+    log_db(temperature, humidity)
