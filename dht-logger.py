@@ -69,7 +69,7 @@ while True:
 
         temperature += temp
         humidity += hum
-        time.sleep(6.0)
+        time.sleep(30.0)
 
     temperature /= i
     humidity /= i
