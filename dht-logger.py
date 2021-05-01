@@ -53,8 +53,8 @@ while True:
     temperature = 0.0
     humidity = 0.0
 
-    # take mean over 10 measurements
-    while i < 10:
+    # take mean over 30 measurements
+    while i < 30:
         try:
             i += 1
             temp = dhtDevice.temperature
@@ -69,7 +69,7 @@ while True:
 
         temperature += temp
         humidity += hum
-        time.sleep(30.0)
+        time.sleep(10.0)
 
     temperature /= i
     humidity /= i
