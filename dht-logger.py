@@ -45,6 +45,9 @@ while connected is False:
 # Get Cursor
 cur = conn.cursor()
 
+#avoid asking dht device to early
+time.sleep(2.0)
+
 while True:
     i = 0
     temp = 0.0
@@ -62,6 +65,7 @@ while True:
 
         except RuntimeError as error:
             i -= 1
+            time.sleep(2.0)
             continue
         except Exception as error:
             dhtDevice.exit()
