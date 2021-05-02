@@ -18,7 +18,7 @@ const App = props => {
 
     useEffect(() => {
         load()
-        window.setTimeout(load, 60000)
+        window.setTimeout(load, 300000)
     }, [])
 
     const load = async () => {
