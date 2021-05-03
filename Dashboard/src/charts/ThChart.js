@@ -13,7 +13,7 @@ const Chart = props => {
                 display: true,
                 position: 'right',
                 text: 'Relative Humidity in %',
-                min: 40,
+                min: 45,
                 max: 75
             },
             y1: { // temp
