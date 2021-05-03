@@ -59,7 +59,7 @@ const App = props => {
                 <thead>
                 <tr>
                     <th>Timestamp</th>
-                    <th>Temperature in Celcius</th>
+                    <th>Temperature in Celsius</th>
                     <th>Relative Humidity</th>
                 </tr>
                 </thead>
