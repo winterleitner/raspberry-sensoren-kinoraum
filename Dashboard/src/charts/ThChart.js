@@ -20,7 +20,7 @@ const Chart = props => {
                 type: 'linear',
                 display: true,
                 position: 'left',
-                text: 'Temperature in Celcius',
+                text: 'Temperature in Celsius',
 
                 // grid line settings
                 grid: {
